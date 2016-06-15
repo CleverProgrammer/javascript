@@ -23,6 +23,34 @@ String.format = function() {
 var URL = String.format("http://api.openweathermap.org/data/2.5/weather?APPID={0}&q={1}", API_KEY, "Chicago");
 
 $(document).ready(function() {
+    function showLocation(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        alert("Latitude : " + latitude + " Longitude: " + longitude);
+    }
+
+    function errorHandler(err) {
+        if(err.code == 1) {
+            alert("Error: Access is denied!");
+        }
+
+        else if( err.code == 2) {
+            alert("Error: Position is unavailable!");
+        }
+    }
+
+    function getLocation(){
+
+        if(navigator.geolocation){
+            // timeout at 60000 milliseconds (60 seconds)
+            var options = {timeout:60000};
+            navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+        }
+
+        else{
+            alert("Sorry, browser does not support geolocation!");
+        }
+    }
     $.getJSON(URL, function(json) {
         console.log("Name: " + json["name"]);
         console.log("Speed: " + json["wind"]["speed"]);
@@ -30,7 +58,6 @@ $(document).ready(function() {
         console.log("Description: " + json["weather"][0]["description"]);
         });
 });
-
 
 /**
  * City, state, cloudy/sunny/rainy/etc, wind-speed, temperature, C VS. F.

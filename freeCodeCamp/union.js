@@ -32,9 +32,3 @@ function unite(arr1, arr2, arr3) {
     return united;
 }
 
-console.log(unite([1, 2, 3], [2, 2, 2], [5, 6, 7]));
-
-// console.log(unite([1, 2, 3], [2, 2, 2], [5, 6, 7]));
-// var result = unite([1, 2, 3], [2, 2, 2], [5, 6, 7]);
-// print(result);
-// => [1, 2, 3, 5, 6, 7]
