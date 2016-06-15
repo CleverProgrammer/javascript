@@ -78,3 +78,65 @@ function getSection(puzzle, x, y) {
   }
   return result;
 }
+
+function includes(arr, value) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] === value) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function unique(arr) {
+  var result = [];
+  var result_idx = 0;
+  for (var i = 0; i < arr.length; i++) {
+    if (!(includes(result, arr[i]))) {
+      result[result_idx] = arr[i];
+      result_idx++;
+    }
+  }
+  // Code here!
+  return result;
+}
+
+//1) every row contains the numbers 1 - 9 and no additional numbers
+//2) every column contains the numbers 1 - 9 and no additional numbers
+//3) every section contains the numbers 1 - 9 and no additional numbers
+
+// Write a function that takes in a sudoku puzzle and returns a boolean to represent if it is passes the aforementioned rules.
+
+var puzzle3 = [[8, 9, 5, 7, 4, 2, 1, 3, 6],
+  [2, 7, 1, 9, 6, 3, 4, 8, 5],
+  [4, 6, 3, 5, 8, 1, 7, 9, 2],
+  [9, 3, 4, 6, 1, 7, 2, 5, 8],
+  [5, 1, 7, 2, 3, 8, 9, 6, 4],
+  [6, 8, 2, 4, 5, 9, 3, 7, 1],
+  [1, 5, 9, 8, 7, 4, 6, 2, 3],
+  [7, 4, 6, 3, 2, 5, 8, 1, 9],
+  [3, 2, 8, 1, 9, 6, 5, 4, 7]];
+
+console.log(isSudokuSolved(puzzle3));
+// -> true
+
+function isSudokuSolved(puzzle) {
+  for (var i = 0; i < 9; i++) {
+    if (unique(getRow(puzzle, i)).length !== 9) {
+      return false;
+    }
+    if (unique(getColumn(puzzle, i)).length !== 9) {
+      return false;
+    }
+  }
+
+  for (var j = 0; j < 3; j++) {
+    for (var k = 0; k < 3; k++) {
+      if (unique(getSection(puzzle, j, k)).length !== 9) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
