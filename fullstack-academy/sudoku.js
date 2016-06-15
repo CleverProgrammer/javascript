@@ -140,3 +140,12 @@ function isSudokuSolved(puzzle) {
 
   return true;
 }
+
+function isSame(puzzle, puzzle2) {
+  for (var i = 0; i < puzzle.length; i++) {
+    if (puzzle[i] !== puzzle2[i]) {
+      return false
+    }
+  }
+  return true
+}
